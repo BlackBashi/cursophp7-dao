@@ -6,23 +6,24 @@ class Sql extends PDO {
 
     public function __construct(){
 
-        $this->conn = new PDO("mysql:localhost;dbname=dbphp7", "mauricio", "123456");
-        
+        $this->conn = new PDO("mysql:host=localhost;dbname=dbphp7", "mauricio", "123456");
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
     }
 
-    private function setParams ($statment, $parameters = array()) {
+    private function setParams ($statement, $parameters = array()) {
           
         foreach ($parameters as $key => $value){
 
-        $this->setParam($key, $value);
+        $this->setParam($statement, $key, $value);
 
         }
     }
     
-    private function setParam ($statmen,$key, $value){
+    private function setParam ($statement,$key, $value){
 
-        $statment->bindParam($key, $value);
+        $statement->bindParam($key, $value);
 
     }
 
